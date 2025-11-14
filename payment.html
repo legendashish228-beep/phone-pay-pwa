@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 2em;
+      text-align: center;
+    }
+    h2 {
+      color: #4b2dab;
+      margin-bottom: 1em;
+    }
+    form {
+      background: white;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 0.7em;
+      margin-bottom: 1.5em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    button {
+      padding: 0.7em 1.5em;
+      background: #4b2dab;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Payment Form</h2>
+  <form onsubmit="goToPin(event)">
+    <label for="recipient">Recipient ID (from QR):</label>
+    <input type="text" id="recipient" name="recipient" readonly />
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" placeholder="Enter amount" required />
+
+    <button type="submit">Proceed</button>
+  </form>
+
+  <script>
+    // Auto-fill recipient from scanned QR
+    const scanned = localStorage.getItem("scannedQR");
+    if (scanned) {
+      document.getElementById("recipient").value = scanned;
+    }
+
+    function goToPin(event) {
+      event.preventDefault();
+      const recipient = document.getElementById("recipient").value;
+      const amount = document.getElementById("amount").value;
+
+      if (recipient && amount) {
+        // ✅ Store details temporarily
+        localStorage.setItem("paymentRecipient", recipient);
+        localStorage.setItem("paymentAmount", amount);
+
+        // ✅ Redirect to PIN entry page
+        window.location.href = "pin.html";
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+  </script>
+</body>
+</html>

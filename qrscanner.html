@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    header {
+      background: #4b2dab;
+      color: white;
+      padding: 1em;
+    }
+    #qr-section {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+    }
+    .scanner-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    #scanner {
+       
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  }
+    .overlay-box {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 4px solid #5e3fcf;
+      border-radius: 10px;
+      pointer-events: none;
+    }
+    #actionButtons {
+      margin-top: 2em;
+      display: none;
+    }
+    #goButton, #scanAgainButton {
+      padding: 0.7em 1.5em;
+      font-size: 1.2em;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #goButton {
+      background: #28a745;
+      margin-right: 1em;
+    }
+    #scanAgainButton {
+      background: #5e3fcf;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Scan QR Code</h1></header>
+
+  <div id="qr-section">
+    <div class="scanner-wrapper">
+      <div id="scanner"></div>
+      <div class="overlay-box"></div>
+
+      <div id="actionButtons">
+        <button id="goButton">Go</button>
+        <button id="scanAgainButton">Scan Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let scannedData = "";
+    const qrScanner = new Html5Qrcode("scanner");
+
+    function showButtons() {
+      document.getElementById("actionButtons").style.display = "flex";
+    }
+
+    function hideButtons() {
+      document.getElementById("actionButtons").style.display = "none";
+    }
+
+    function startScanner() {
+      qrScanner.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 250 },
+          aspectRatio: 1.0
+        },
+        qrCodeMessage => {
+          scannedData = qrCodeMessage;
+          qrScanner.stop().then(showButtons);
+        },
+        errorMessage => {
+          console.warn("QR scan error:", errorMessage);
+        }
+      ).catch(err => {
+        alert("Camera error: " + err);
+      });
+    }
+
+    window.onload = startScanner;
+
+    document.getElementById("goButton").onclick = () => {
+      if (scannedData) {
+        localStorage.setItem("scannedQR", scannedData);
+        window.location.href = "payment.html";
+      } else {
+        alert("No QR code scanned.");
+      }
+    };
+
+    document.getElementById("scanAgainButton").onclick = () => {
+      scannedData = "";
+      hideButtons();
+      startScanner();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter PIN</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 2em;
+    }
+    h2 { color: #4b2dab; }
+    input {
+      font-size: 2em;
+      letter-spacing: 0.5em;
+      text-align: center;
+      padding: 0.5em;
+      width: 150px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 1em;
+      padding: 0.7em 1.5em;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Enter 4-digit PIN</h2>
+  <input type="password" id="pinInput" maxlength="4" placeholder="••••" />
+  <br />
+  <button onclick="submitPin()">Send Payment</button>
+
+  <script>
+    function submitPin() {
+      const pin = document.getElementById("pinInput").value;
+      if (pin.length === 4) {
+        // ✅ Redirect to completed page
+        window.location.href = "completed.html";
+      } else {
+        alert("Please enter a 4-digit PIN.");
+      }
+    }
+  </script>
+</body>
+</html>

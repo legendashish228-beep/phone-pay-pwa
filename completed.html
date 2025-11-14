@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Completed</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: white;
+      text-align: center;
+      animation: fadeIn 1s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    header {
+      background: #4b2dab;
+      color: white;
+      padding: 1em;
+    }
+    .checkmark {
+      font-size: 3em;
+      color: white;
+      background: #b2f2bb; /* Light green background */
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      margin: 20vh auto 1em;
+      animation: pop 0.5s ease;
+    }
+    h2 {
+      color: #333;
+      font-size: 2em;
+      margin-top: 1em;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      animation: fall 2s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Payment</h1>
+  </header>
+  <div class="checkmark">✔</div>
+  <h2>Payment Completed</h2>
+
+  <!-- Confetti Animation -->
+  <script>
+    for (let i = 0; i < 30; i++) {
+      const confetti = document.createElement("div");
+      confetti.className = "confetti";
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration = (1 + Math.random()) + "s";
+      document.body.appendChild(confetti);
+    }
+  </script>
+</body>
+</html>
