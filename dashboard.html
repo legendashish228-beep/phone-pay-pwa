@@ -177,6 +177,7 @@
     <div class="option-label">QR Code</div>
   </a>
 </div>
+  <button id="installBtn" style="display: none;">Install App</button>
 <script>
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js")
@@ -213,3 +214,4 @@ window.addEventListener('beforeinstallprompt', (e) => {
 </body>
 
 </html>
+
