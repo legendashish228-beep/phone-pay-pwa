@@ -2,7 +2,7 @@
   "name": "Phone Pay",
   "short_name": "PhonePay",
   "description": "A PhonePe-style payment dashboard with QR scanning and animated transitions.",
-  "start_url": "dashboard.html",
+  "start_url": "phone pay.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4b2dab",
@@ -18,4 +18,5 @@
       "type": "image/png"
     }
   ]
+
 }
